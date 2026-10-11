@@ -1,1 +1,97 @@
-
+name: KrivaTasks
+options:
+  bundleIdPrefix: com.kriva
+  deploymentTarget:
+    iOS: "13.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.4"
+    CURRENT_PROJECT_VERSION: "5"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+targets:
+  KrivaTasks:
+    type: application
+    platform: iOS
+    deploymentTarget: "13.0"
+    sources:
+      - path: KrivaTasks
+      - path: Shared
+    scheme: {}
+    entitlements:
+      path: KrivaTasks/KrivaTasks.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kriva.taskmanagement
+    info:
+      path: KrivaTasks/Info.plist
+      properties:
+        CFBundleDisplayName: Kriva Tasks
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchStoryboardName: LaunchScreen
+        UIUserInterfaceStyle: Light
+        UIViewControllerBasedStatusBarAppearance: true
+        UIRequiresFullScreen: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        UIBackgroundModes:
+          - fetch
+        CFBundleURLTypes:
+          - CFBundleURLName: com.kriva.taskmanagement
+            CFBundleURLSchemes:
+              - kriva
+        LSApplicationQueriesSchemes:
+          - whatsapp
+          - upi
+          - tel
+          - tez
+          - phonepe
+          - paytmmp
+        NSContactsUsageDescription: Customer ka mobile number contacts se chunne ke liye.
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_NAME: KrivaTasks
+        PRODUCT_BUNDLE_IDENTIFIER: com.kriva.taskmanagement
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        OTHER_LDFLAGS: ["$(inherited)", "-weak_framework", "WidgetKit"]
+    dependencies:
+      - target: KrivaWidget
+        embed: true
+  KrivaWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: KrivaWidget
+      - path: Shared
+    entitlements:
+      path: KrivaWidget/KrivaWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kriva.taskmanagement
+    info:
+      path: KrivaWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Kriva Tasks
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_NAME: KrivaWidget
+        PRODUCT_BUNDLE_IDENTIFIER: com.kriva.taskmanagement.widget
+        TARGETED_DEVICE_FAMILY: "1,2"
+        APPLICATION_EXTENSION_API_ONLY: true
